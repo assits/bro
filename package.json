@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "commit": "git add . && git-cz",
+    "build": "bro-build",
+    "release": "lerna publish"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
+    }
+  },
+  "devDependencies": {
+    "commitizen": "^4.2.2",
+    "cz-lerna-changelog": "^2.0.3",
+    "lerna": "^3.22.1"
+  }
+}

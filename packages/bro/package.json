@@ -1,0 +1,30 @@
+{
+  "name": "@assits/bro",
+  "version": "1.0.10",
+  "description": "Library toolkit based on rollup.",
+  "main": "lib/index.js",
+  "bin": {
+    "bro": "./bin/bro.js"
+  },
+  "files": [
+    "lib",
+    "bin",
+    "template"
+  ],
+  "keywords": [
+    "@assits/bro"
+  ],
+  "repository": "https://github.com/sportcoco/bro",
+  "author": "sportcoco",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@assits/bro-build": "1.0.8",
+    "@bomijs/utils": "1.0.9",
+    "prettier": "2.1.1",
+    "staged-git-files": "^1.2.0"
+  },
+  "gitHead": "7a0708e99ba3f3fa4bd01ea61a614be5c4fcedb2"
+}
