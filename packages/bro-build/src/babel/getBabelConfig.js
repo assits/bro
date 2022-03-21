@@ -41,7 +41,6 @@ export function getBabelConfig(opts) {
     ],
     typescript && [require.resolve("@babel/preset-typescript"), { allowNamespaces: true }],
     isBrowser && [require.resolve("@vue/babel-preset-jsx")],
-    isBrowser && [require.resolve("@babel/preset-react")],
   ].filter(Boolean);
 
   const plugins = [
