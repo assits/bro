@@ -21,7 +21,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@assits/bro-build": "1.0.10",
+    "@assits/bro-build": "1.0.12",
     "@bomijs/utils": "1.0.9",
     "prettier": "2.1.1",
     "staged-git-files": "^1.2.0"
