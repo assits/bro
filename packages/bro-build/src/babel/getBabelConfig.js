@@ -40,7 +40,7 @@ export function getBabelConfig(opts) {
       },
     ],
     typescript && [require.resolve("@babel/preset-typescript"), { allowNamespaces: true }],
-    isBrowser && [require.resolve("@vue/babel-preset-app")],
+    isBrowser && [require.resolve("@vue/babel-preset-jsx")],
   ].filter(Boolean);
 
   const plugins = [
