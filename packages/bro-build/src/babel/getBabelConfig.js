@@ -59,7 +59,7 @@ export function getBabelConfig(opts) {
     require.resolve("@babel/plugin-proposal-export-default-from"),
     typescript && [require.resolve("babel-plugin-transform-typescript-metadata")],
     [require.resolve("@babel/plugin-proposal-decorators"), { legacy: true }],
-    [require.resolve("@babel/plugin-proposal-class-properties"), { loose: true }],
+    [require.resolve("@babel/plugin-proposal-class-properties"), { loose: false }],
     [require.resolve("@babel/plugin-proposal-optional-chaining"), { loose: false }],
     [require.resolve("@babel/plugin-proposal-nullish-coalescing-operator"), { loose: false }],
     [require.resolve("@babel/plugin-transform-destructuring"), { loose: false }],
