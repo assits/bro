@@ -1,7 +1,7 @@
-import { extname } from "path";
+import { extname, dirname } from "path";
 import { Target, Type } from "../constant";
 
-export function getBabelConfig(opts) {
+export function getBabelConfig (opts) {
   const {
     target,
     type,
@@ -24,8 +24,8 @@ export function getBabelConfig(opts) {
           ? true
           : isBrowser
         : browserFiles.includes(filePath)
-        ? true
-        : isBrowser;
+          ? true
+          : isBrowser;
     }
   }
 
@@ -46,13 +46,13 @@ export function getBabelConfig(opts) {
   const plugins = [
     ...(!isBrowser && type === Type.cjs && lazy
       ? [
-          [
-            require.resolve("@babel/plugin-transform-modules-commonjs"),
-            {
-              lazy: true,
-            },
-          ],
-        ]
+        [
+          require.resolve("@babel/plugin-transform-modules-commonjs"),
+          {
+            lazy: true,
+          },
+        ],
+      ]
       : []),
     require.resolve("@babel/plugin-syntax-dynamic-import"),
     require.resolve("@babel/plugin-proposal-export-namespace-from"),
