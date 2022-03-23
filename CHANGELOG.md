@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.16](https://github.com/assits/bro/compare/v1.0.15...v1.0.16) (2022-03-23)
+
+
+### Bug Fixes
+
+* **babel:** fix some bugs ([ef7d41e](https://github.com/assits/bro/commit/ef7d41e4fa8653684588397a63eda7d36e6f492d))
+
+
+
+
+
 ## 1.0.15 (2022-03-22)
 
 
