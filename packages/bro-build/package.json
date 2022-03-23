@@ -1,6 +1,6 @@
 {
   "name": "@assits/bro-build",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Library build tool based on rollup.",
   "main": "lib/index.js",
   "bin": {
