@@ -1,4 +1,4 @@
-import { extname, dirname } from "path";
+import { extname } from "path";
 import { Target, Type } from "../constant";
 
 export function getBabelConfig (opts) {
@@ -69,8 +69,7 @@ export function getBabelConfig (opts) {
       {
         version: require("@babel/runtime/package.json").version,
         corejs: false,
-        absoluteRuntime: dirname(require.resolve("@babel/runtime/package.json")),
-        useESModules: true,
+        useESModules: isBrowser && (type === Type.esm)
       },
     ],
     process.env.COVERAGE && [require.resolve("babel-plugin-istanbul")],
