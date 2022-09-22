@@ -66,4 +66,5 @@ export default (joi) =>
     typescriptOpts: joi.object(),
     disableTypeCheck: joi.boolean(),
     pkgs: joi.array(),
+    watch: joi.boolean()
   });
