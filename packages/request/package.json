@@ -1,0 +1,26 @@
+{
+  "name": "@assits/request",
+  "version": "1.0.18",
+  "description": "@assits/request",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "dist/",
+    "es"
+  ],
+  "keywords": [
+    "@assits"
+  ],
+  "authors": [
+    "sport"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "isomorphic-fetch": "^2.2.1",
+    "qs": "^6.9.1"
+  }
+}
