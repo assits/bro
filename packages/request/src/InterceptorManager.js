@@ -12,7 +12,7 @@ export default class InterceptorManager {
    * @param {Function} rejected The function to handle `reject` for a `Promise`
    * @return {Number} An ID used to remove interceptor later
    */
-  use(fulfilled, options) {
+  use(fulfilled, rejected, options) {
     this.handlers.push({
       fulfilled,
       rejected,

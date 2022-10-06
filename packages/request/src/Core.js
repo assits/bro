@@ -5,7 +5,7 @@ import fetchMiddleware from './middleware/fetch'
 import customRequestMiddleware from './middleware/customRequest'
 import postMiddleware from './middleware/post'
 import getMiddleware from './middleware/get'
-import { mergeRequestOptions } from './utils'
+import { mergeRequestOptions, isString } from './utils'
 
 // 初始化全局和内核中间件
 const globalMiddlewares = [addfixMiddleware, postMiddleware, getMiddleware]
@@ -43,23 +43,26 @@ export default class Core {
   ) {
     let i = 0
     let promise = Promise.resolve(config)
+    interceptors = interceptors.filter(Boolean)
     const len = interceptors.length
 
     while (i < len) {
-      promise = promise.then(ret => {
-        if (isRequestInterceptor) {
-          ctx.req.url = ret.url || ctx.req.url
-          ctx.req.options = ret.options || ctx.req.options
-        }
-        return interceptors[i++](ret, ctx)
-      }, interceptors[i++])
+      promise = promise
+        .then(ret => {
+          if (isRequestInterceptor) {
+            ctx.req.url = ret.url || ctx.req.url
+            ctx.req.options = ret || ctx.req.options
+          }
+          return ret
+        })
+        .then(interceptors[i++], interceptors[i++])
     }
 
     return promise
   }
 
   request(optionsOrUrl, options = {}) {
-    if (typeof optionsOrUrl === 'string') {
+    if (isString(optionsOrUrl)) {
       options.url = optionsOrUrl
     } else {
       options = optionsOrUrl || {}
@@ -93,7 +96,7 @@ export default class Core {
     })
 
     const context = {
-      req: { url: optionsOrUrl.url, options },
+      req: { url: options.url, options },
       res: null
     }
 

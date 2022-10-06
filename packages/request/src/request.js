@@ -5,6 +5,7 @@
 // 4.
 
 import Core from './Core'
+import Onion from './Onion'
 import { Cancel, CancelToken, isCancel } from './cancel'
 
 function createIntance(opts = {}) {
@@ -15,7 +16,7 @@ function createIntance(opts = {}) {
   }
 
   // 拦截器
-  bomiIntance.interceptors = coreInstance.interceptors.bind(coreInstance)
+  bomiIntance.interceptors = coreInstance.interceptors
 
   // 中间件
   bomiIntance.use = coreInstance.use.bind(coreInstance)
@@ -61,4 +62,6 @@ function createIntance(opts = {}) {
  */
 export const extend = initOptions => createIntance(initOptions)
 
-export default request()
+export const fetch = createIntance({ parseResponse: false })
+
+export default createIntance()

@@ -77,7 +77,6 @@ export default function postMiddleware(ctx, next) {
     options.body = data
   }
 
-  options.adapter = 'fetch'
   ctx.req.options = options
 
   return next()

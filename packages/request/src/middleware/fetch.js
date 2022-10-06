@@ -14,13 +14,15 @@ export default function fetchMiddleware(ctx, next) {
   const { req: { options = {}, url = '' } = {} } = ctx
   const { timeout = 0, timeoutMessage } = options
 
-  if (options.adapter !== 'fetch') return next()
+  if (options.adapter && options.adapter !== 'fetch') return next()
 
   const adapter = fetch
 
   if (!adapter) {
     throw new Error('Global fetch not exist!')
   }
+
+  ctx.req.options.adapter = 'fetch'
 
   let response
   // 超时处理、取消请求处理
