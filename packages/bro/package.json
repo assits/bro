@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@assits/bro-build": "1.0.18",
-    "@bomijs/utils": "1.0.9",
+    "@bomijs/utils": "^1.3.0",
     "prettier": "2.1.1",
     "staged-git-files": "^1.2.0"
   },
