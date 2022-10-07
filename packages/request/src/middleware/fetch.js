@@ -101,6 +101,7 @@ export default function fetchMiddleware(ctx, next) {
       if (copy.status >= 200 && copy.status < 300) {
         // 提供源response, 以便自定义处理
         if (getResponse) {
+          copy.config = req.options
           ctx.res = { data: body, response: copy }
         } else {
           ctx.res = body

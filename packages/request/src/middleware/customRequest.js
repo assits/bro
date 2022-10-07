@@ -6,6 +6,7 @@ import {
   getEnv,
   isString,
   isFunction,
+  readerGBK,
   safeJsonParse,
   RequestError,
   ResponseError
@@ -110,8 +111,7 @@ export default function customRequestMiddleware(ctx, next) {
       // 解析数据
       if (charset === 'gbk') {
         try {
-          const decoder = new TextDecoder('GBK')
-          return decoder.decode(res.data)
+          return readerGBK(res.data)
         } catch (e) {
           throw new ResponseError(copy, e.message, null, req, 'ParseError')
         }

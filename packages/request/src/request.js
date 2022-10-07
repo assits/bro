@@ -21,13 +21,13 @@ function createIntance(opts = {}) {
   // 中间件
   bomiIntance.use = coreInstance.use.bind(coreInstance)
 
-  // 暴露各个实例的中间件，方便查看
-  bomiIntance.middlewares = Object.freeze({
+  // 暴露各个实例的中间件
+  bomiIntance.middlewares = {
     instance: coreInstance.onion.middlewares,
     defaultInstance: coreInstance.onion.defaultMiddlewares,
     global: Onion.globalMiddlewares,
     core: Onion.coreMiddlewares
-  })
+  }
 
   bomiIntance.Cancel = Cancel
   bomiIntance.CancelToken = CancelToken

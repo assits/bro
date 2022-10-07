@@ -3,6 +3,8 @@ import { isArray, isProcess, isURLSearchParams, isFunction } from './is'
 
 export * from './is'
 export * from './cache'
+export * from './priority-queue'
+export * from './throtter'
 
 /**
  * 请求异常
@@ -190,8 +192,11 @@ export function extend(a, b, thisArg) {
   return a
 }
 
-export const hasOwnProp = (({ hasOwnProperty }) => (obj, prop) =>
-  hasOwnProperty.call(obj, prop))(Object.prototype)
+export const hasOwnProp = (
+  ({ hasOwnProperty }) =>
+  (obj, prop) =>
+    hasOwnProperty.call(obj, prop)
+)(Object.prototype)
 
 // 拼接路径
 export function pathJoin(...args) {
