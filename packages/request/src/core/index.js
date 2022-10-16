@@ -6,7 +6,7 @@
 
 import Core from './Core'
 import Onion from './Onion'
-import { Cancel, CancelToken, isCancel } from './cancel'
+import { Cancel, CancelToken, isCancel } from '../cancel'
 
 function createIntance(opts = {}) {
   const coreInstance = new Core(opts)

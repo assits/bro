@@ -1,4 +1,4 @@
-import { forEach2ObjArr } from './utils'
+import { forEach2ObjArr } from '../utils'
 
 export default class InterceptorManager {
   constructor() {

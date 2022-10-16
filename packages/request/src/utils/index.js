@@ -4,7 +4,6 @@ import { isArray, isProcess, isURLSearchParams, isFunction } from './is'
 export * from './is'
 export * from './cache'
 export * from './priority-queue'
-export * from './throtter'
 
 /**
  * 请求异常

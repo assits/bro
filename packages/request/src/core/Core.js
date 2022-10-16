@@ -1,14 +1,20 @@
 import Onion from './Onion'
 import InterceptorManager from './InterceptorManager'
-import addfixMiddleware from './middleware/addfix'
-import fetchMiddleware from './middleware/fetch'
-import customRequestMiddleware from './middleware/customRequest'
-import postMiddleware from './middleware/post'
-import getMiddleware from './middleware/get'
-import { mergeRequestOptions, isString } from './utils'
+import addfixMiddleware from '../middleware/addfix'
+import fetchMiddleware from '../middleware/fetch'
+import customRequestMiddleware from '../middleware/customRequest'
+import postMiddleware from '../middleware/post'
+import getMiddleware from '../middleware/get'
+import parseResponseMiddleware from '../middleware/parseResponse'
+import { mergeRequestOptions, isString } from '../utils'
 
 // 初始化全局和内核中间件
-const globalMiddlewares = [addfixMiddleware, postMiddleware, getMiddleware]
+const globalMiddlewares = [
+  addfixMiddleware,
+  postMiddleware,
+  getMiddleware,
+  parseResponseMiddleware
+]
 const coreMiddlewares = [fetchMiddleware, customRequestMiddleware]
 
 Onion.globalMiddlewares = globalMiddlewares
@@ -35,24 +41,16 @@ export default class Core {
     return this
   }
 
-  handleInterceptors(
-    interceptors,
-    config = {},
-    ctx = {},
-    isRequestInterceptor = true
-  ) {
+  handleInterceptors(interceptors, config = {}, ctx = {}) {
     let i = 0
     let promise = Promise.resolve(config)
-    interceptors = interceptors.filter(Boolean)
     const len = interceptors.length
 
     while (i < len) {
       promise = promise
         .then(ret => {
-          if (isRequestInterceptor) {
-            ctx.req.url = ret.url || ctx.req.url
-            ctx.req.options = ret || ctx.req.options
-          }
+          ctx.req.url = ret.url || ctx.req.url
+          ctx.req.options = ret || ctx.req.options
           return ret
         })
         .then(interceptors[i++], interceptors[i++])
@@ -97,21 +95,14 @@ export default class Core {
 
     const context = {
       req: { url: options.url, options },
-      res: null
+      res: null,
+      responseInterceptorChain
     }
 
     return new Promise((resolve, reject) => {
       this.handleInterceptors(requestInterceptorChain, options, context)
         .then(() => this.onion.execute(context))
-        .then(() =>
-          this.handleInterceptors(
-            responseInterceptorChain,
-            context.res,
-            context,
-            false
-          )
-        )
-        .then(response => resolve(response))
+        .then(() => resolve(context.res))
         .catch(error => {
           const { errorHandler } = context.req.options
           if (errorHandler) {

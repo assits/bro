@@ -74,4 +74,65 @@ class ExpriesCache {
   }
 }
 
-export { ExpriesCache }
+const cache = new ExpriesCache({ maxCache: 100 })
+
+const clearCache = key => {
+  if (key) {
+    const cacheKeys = Array.isArray(key) ? key : [key]
+    cacheKeys.forEach(cacheKey => cache.remove(cacheKey))
+  } else {
+    cache.clear()
+  }
+}
+
+const cachePromise = new Map()
+
+const getCachePromise = cacheKey => {
+  return cachePromise.get(cacheKey)
+}
+
+const setCachePromise = (cacheKey, promise) => {
+  cachePromise.set(cacheKey, promise)
+
+  // 请求完之后删除自己，这样也保证了请求 Promise 共享
+  promise
+    .then(res => {
+      cachePromise.delete(cacheKey)
+      return res
+    })
+    .catch(err => {
+      cachePromise.delete(cacheKey)
+      throw err
+    })
+}
+
+// 发布订阅模式
+const listeners = {}
+
+const trigger = (key, data) => {
+  if (listeners[key]) {
+    listeners[key].forEach(item => item(data))
+  }
+}
+
+const subscribe = (key, listener) => {
+  if (!listeners[key]) {
+    listeners[key] = []
+  }
+  listeners[key].push(listener)
+
+  return function unsubscribe() {
+    const index = listeners[key].indexOf(listener)
+    listeners[key].splice(index, 1)
+  }
+}
+
+export {
+  ExpriesCache,
+  cache,
+  clearCache,
+  getCachePromise,
+  setCachePromise,
+  trigger,
+  subscribe
+}

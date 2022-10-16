@@ -13,7 +13,7 @@ export default function postMiddleware(ctx, next) {
   if (!data) return next()
 
   // XMLHttpRequest/自定义 adapter  使用的数据
-  if (options.adapter || options.adapter === 'XMLHttpRequest') {
+  if (options.adapter || options.adapter === 'axios') {
     if (requestType === 'json') {
       options.headers = {
         Accept: 'application/json',
