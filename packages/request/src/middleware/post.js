@@ -1,4 +1,4 @@
-import { reqStringify, isObject, isArray } from '../utils'
+import { reqStringify, isObject, isArray, isFunction } from '../utils'
 
 // 对请求参数做处理，实现 query 简化、 post 简化
 export default function postMiddleware(ctx, next) {
@@ -13,7 +13,7 @@ export default function postMiddleware(ctx, next) {
   if (!data) return next()
 
   // XMLHttpRequest/自定义 adapter  使用的数据
-  if (options.adapter || options.adapter === 'axios') {
+  if (isFunction(options.adapter) || options.adapter === 'axios') {
     if (requestType === 'json') {
       options.headers = {
         Accept: 'application/json',
@@ -47,6 +47,8 @@ export default function postMiddleware(ctx, next) {
   }
 
   // Fetch 数据使用类axios的新字段data, 避免引用后影响旧代码, 如将body stringify多次
+  if (!options.adapter === 'fetch') return next()
+
   if (isObject(data) || isArray(data)) {
     if (requestType === 'json') {
       options.headers = {

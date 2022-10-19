@@ -2,7 +2,6 @@ import Onion from './Onion'
 import InterceptorManager from './InterceptorManager'
 import addfixMiddleware from '../middleware/addfix'
 import fetchMiddleware from '../middleware/fetch'
-import customRequestMiddleware from '../middleware/customRequest'
 import postMiddleware from '../middleware/post'
 import getMiddleware from '../middleware/get'
 import parseResponseMiddleware from '../middleware/parseResponse'
@@ -15,7 +14,7 @@ const globalMiddlewares = [
   getMiddleware,
   parseResponseMiddleware
 ]
-const coreMiddlewares = [fetchMiddleware, customRequestMiddleware]
+const coreMiddlewares = [fetchMiddleware]
 
 Onion.globalMiddlewares = globalMiddlewares
 Onion.defaultGlobalMiddlewaresLength = globalMiddlewares.length
