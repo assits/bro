@@ -1,4 +1,5 @@
 export default {
-  esm: { type: 'rollup' },
-  cjs: 'babel'
+  esm: { type: 'rollup', minify: true },
+  cjs: 'babel',
+  runtimeHelpers: true
 }
