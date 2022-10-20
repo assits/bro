@@ -38,7 +38,7 @@ export function getBundleOpts(opts) {
     }
 
     if (!!bundleOpts.runtimeHelpers) {
-      const pkg = require(join(cwd, "package.json"));
+      const pkg = require(join(__dirname, '../', 'package.json'))
       assert(
         !!pkg?.dependencies?.["@babel/runtime"],
         `@babel/runtime dependency is required to use runtimeHelpers`
