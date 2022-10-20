@@ -11,6 +11,7 @@ lerna-debug.log
 
 /packages/*/lib
 /packages/*/dist
+/packages/*/es
 /packages/*/node_modules
 /coverage
 report.*.json
