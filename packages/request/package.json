@@ -1,11 +1,12 @@
 {
   "name": "@assits/request",
-  "version": "1.0.18",
+  "version": "1.0.0",
   "description": "@assits/request",
-  "main": "dist/index.esm.js",
+  "main": "lib/index.js",
+  "module": "dist/index.esm.js",
   "files": [
     "lib",
-    "dist/",
+    "dist",
     "es"
   ],
   "keywords": [
