@@ -67,8 +67,7 @@ export default class Fetch {
       ...this.state,
       ...opts
     }
-
-    this.setUpdate(this.setState)
+    this.setUpdate(this.state)
   }
 
   runPluginHandler(event, ...args) {

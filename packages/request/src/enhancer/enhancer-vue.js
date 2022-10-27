@@ -49,7 +49,7 @@ function useEnhancerByVue(service, options = {}, plugins = []) {
       .map(p => p?.onInit?.(fetchOptions))
       .filter(Boolean)
     return new Fetch(
-      serviceRef,
+      serviceRef.value,
       fetchOptions,
       setUpdate,
       Object.assign({}, ...initState)
@@ -84,7 +84,10 @@ function useEnhancerByVue(service, options = {}, plugins = []) {
     refreshAsync: fetchInstance.value.refreshAsync.bind(fetchInstance.value),
     run: fetchInstance.value.run.bind(fetchInstance.value),
     runAsync: fetchInstance.value.runAsync.bind(fetchInstance.value),
-    mutate: fetchInstance.value.mutate.bind(fetchInstance.value)
+    mutate: fetchInstance.value.mutate.bind(fetchInstance.value),
+    onSuccess: fetchInstance.value.responseEvent.on,
+    onError: fetchInstance.value.errorEvent.on,
+    onFinally: fetchInstance.value.finallyEvent.on
   }
 }
 
