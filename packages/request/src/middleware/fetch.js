@@ -6,7 +6,7 @@ export default function fetchMiddleware(ctx, next) {
   const { req: { url, options = {} } = {}, responseInterceptorChain = [] } = ctx
   const { timeout = 0, timeoutMessage } = options
 
-  if (options.adapter && options.adapter !== 'fetch') return next()
+  if (ctx.adapter && ctx.adapter !== 'fetch') return next()
 
   const adapter = fetch
 
@@ -14,7 +14,9 @@ export default function fetchMiddleware(ctx, next) {
     throw new Error('Global fetch not exist!')
   }
 
-  ctx.req.options.adapter = 'fetch'
+  ctx.adapter = 'fetch'
+
+  delete options.adapter
 
   let response
   // 超时处理、取消请求处理

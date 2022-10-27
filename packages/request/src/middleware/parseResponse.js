@@ -11,14 +11,13 @@ export default function parseResponseMiddleware(ctx, next) {
   return next()
     .then(() => {
       if (!ctx) return
-      const { res = {}, req = {} } = ctx
+      const { res = {}, req = {}, adapter } = ctx
       const {
         options: {
           responseType = 'json',
           charset = 'utf8',
           throwErrIfParseFail = false,
-          parseResponse = true,
-          adapter
+          parseResponse = true
         } = {}
       } = req || {}
       const isFetchAdapter = adapter === 'fetch'

@@ -11,9 +11,9 @@ export default function customRequestMiddleware(ctx, next) {
     responseType = 'json'
   } = options
 
-  if (options.adapter === 'fetch') return next()
+  if (ctx.adapter === 'fetch') return next()
 
-  const adapter = options.adapter === 'axios' ? axios : options.adapter
+  const adapter = ctx.adapter === 'axios' ? axios : ctx.adapter
 
   if (!isFunction(adapter)) {
     throw new Error('Adapter is not available in the build')
@@ -32,9 +32,7 @@ export default function customRequestMiddleware(ctx, next) {
         : options.credentials !== 'omit'
   }
 
-  if (adapter === 'axios' || adapter.constructor === axios.constructor) {
-    delete adapterOptions.adapter
-  }
+  delete adapterOptions.adapter
 
   if (charset === 'gbk') {
     adapterOptions.responseType = 'arraybuffer'

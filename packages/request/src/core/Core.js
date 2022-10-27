@@ -31,10 +31,9 @@ export default class Core {
       response: new InterceptorManager()
     }
 
-    if (
-      instanceConfig.adapter === 'axios' ||
-      isFunction(instanceConfig.adapter)
-    ) {
+    // 初始化适配器
+    this.adapter = instanceConfig.adapter || 'fetch'
+    if (this.adapter === 'axios' || isFunction(this.adapter)) {
       this.use(adapterMiddleware, { core: true })
     }
   }
@@ -103,6 +102,7 @@ export default class Core {
     const context = {
       req: { url: options.url, options },
       res: null,
+      adapter: this.adapter,
       responseInterceptorChain
     }
 
