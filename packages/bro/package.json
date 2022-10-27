@@ -1,6 +1,6 @@
 {
   "name": "@assits/bro",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Library toolkit based on rollup.",
   "main": "lib/index.js",
   "bin": {
@@ -21,7 +21,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@assits/bro-build": "1.0.18",
+    "@assits/bro-build": "1.0.19",
     "@bomijs/utils": "^1.3.0",
     "prettier": "2.1.1",
     "staged-git-files": "^1.2.0"
