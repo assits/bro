@@ -1,17 +1,14 @@
 import { RequestError, ResponseError, clearCache } from './utils'
-import adapterMiddleware from './middleware/customRequest'
-import request, { extend, fetch } from './core'
-import useRequest, { useEnhancer } from './enhancer'
+import request, { extend } from './core'
+import { useRequest, useRequestByVue } from './enhancer'
 
 export {
   RequestError,
   ResponseError,
-  fetch,
   extend,
   clearCache,
   useRequest,
-  useEnhancer,
-  adapterMiddleware
+  useRequestByVue
 }
 
 export default request

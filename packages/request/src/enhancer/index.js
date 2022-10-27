@@ -4,46 +4,18 @@ import debouncePlugin from './plugins/debounce'
 import throttlePlugin from './plugins/throttle'
 import cachePlugin from './plugins/cache'
 import loadingDelayPlugin from './plugins/loading-delay'
-import requestEnhancer from './enhancer'
-import { isString, isObject } from '../utils'
+import autoRunPlugin from './plugins/auto-run'
+import useEnhancer from './enhancer'
+import useEnhancerByVue from './enhancer-vue'
 
 // 支持防抖、节流
 // 轮询、错误重试
 // 支持缓存，取消并发重复请求
 // 支持加载延时
-
-export function useEnhancer(adapter) {
-  return (service, options, plugins) => {
-    let promiseService
-
-    if (isString(service) || isObject(service)) {
-      promiseService = () => adapter(service)
-    } else {
-      promiseService = (...args) => {
-        return new Promise((resolve, reject) => {
-          const result = service(...args)
-
-          if (isString(service) || isObject(service)) {
-            adapter(result).then(resolve, reject)
-          }
-        })
-      }
-    }
-
-    return requestEnhancer(promiseService, options, [
-      ...(plugins || []),
-      debouncePlugin,
-      throttlePlugin,
-      cachePlugin,
-      pollingPlugin,
-      retryPlugin,
-      loadingDelayPlugin
-    ])
-  }
-}
+// 支持依赖变化，自动刷新
 
 function useRequest(service, options, plugins) {
-  return requestEnhancer(service, options, [
+  return useEnhancer(service, options, [
     ...(plugins || []),
     debouncePlugin,
     throttlePlugin,
@@ -54,4 +26,17 @@ function useRequest(service, options, plugins) {
   ])
 }
 
-export default useRequest
+function useRequestByVue(service, options, plugins) {
+  return useEnhancerByVue(service, options, [
+    ...(plugins || []),
+    autoRunPlugin,
+    debouncePlugin,
+    throttlePlugin,
+    cachePlugin,
+    pollingPlugin,
+    retryPlugin,
+    loadingDelayPlugin
+  ])
+}
+
+export { useRequest, useRequestByVue }

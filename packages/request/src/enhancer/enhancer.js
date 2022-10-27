@@ -2,7 +2,7 @@
 
 import Fetch from './Fetch'
 
-function requestEnhancer(adapter, options = {}, plugins = []) {
+function useEnhancer(adapter, options = {}, plugins = []) {
   const { manual = false, ...rest } = options
 
   const fetchOptions = {
@@ -15,6 +15,7 @@ function requestEnhancer(adapter, options = {}, plugins = []) {
   const fetchInstance = new Fetch(
     adapter,
     fetchOptions,
+    null,
     Object.assign({}, ...initState)
   )
 
@@ -23,10 +24,6 @@ function requestEnhancer(adapter, options = {}, plugins = []) {
   fetchInstance.plugins = plugins.map(p => p(fetchInstance, fetchOptions))
 
   return {
-    // loading: fetchInstance.state.loading,
-    // data: fetchInstance.state.data,
-    // error: fetchInstance.state.error,
-    // params: fetchInstance.state.params || [],
     cancel: fetchInstance.cancel.bind(fetchInstance),
     refresh: fetchInstance.refresh.bind(fetchInstance),
     refreshAsync: fetchInstance.refreshAsync.bind(fetchInstance),
@@ -39,4 +36,4 @@ function requestEnhancer(adapter, options = {}, plugins = []) {
   }
 }
 
-export default requestEnhancer
+export default useEnhancer

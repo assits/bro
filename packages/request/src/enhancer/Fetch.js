@@ -38,7 +38,7 @@ export default class Fetch {
 
   plugins = []
 
-  constructor(adapter, options = {}, initState = {}) {
+  constructor(adapter, options = {}, setUpdate, initState = {}) {
     this.options = options
     this.adapter =
       adapter ||
@@ -53,7 +53,10 @@ export default class Fetch {
       }
     }
 
-    // Event Hooks
+    // 更新函数
+    this.setUpdate = setUpdate || function () {}
+
+    // 钩子函数
     this.responseEvent = createEventHook()
     this.errorEvent = createEventHook()
     this.finallyEvent = createEventHook()
@@ -64,6 +67,8 @@ export default class Fetch {
       ...this.state,
       ...opts
     }
+
+    this.setUpdate(this.setState)
   }
 
   runPluginHandler(event, ...args) {
