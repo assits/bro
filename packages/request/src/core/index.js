@@ -61,6 +61,4 @@ function createIntance(opts = {}) {
  */
 export const extend = initOptions => createIntance(initOptions)
 
-export const fetch = createIntance({ parseResponse: false })
-
 export default createIntance()

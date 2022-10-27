@@ -1,34 +1,5 @@
-import httpAdapter from 'axios/lib/adapters/http'
-import xhrAdapter from 'axios/lib/adapters/xhr'
-import {
-  timeout2Throw,
-  cancel2Throw,
-  getEnv,
-  isString,
-  isFunction,
-} from '../utils'
-
-const adapters = {
-  http: httpAdapter,
-  xhr: xhrAdapter
-}
-
-function getAdapter(nameOrAdapter) {
-  return isString(nameOrAdapter) ? adapters[nameOrAdapter] : null
-}
-
-function getDefaultAdapter() {
-  let adapter
-  const env = getEnv()
-  if (env === 'BROWSER') {
-    // For browsers use XHR adapter
-    adapter = getAdapter('xhr')
-  } else if (env === 'NODE') {
-    // For node use HTTP adapter
-    adapter = getAdapter('http')
-  }
-  return adapter
-}
+import axios from 'axios'
+import { timeout2Throw, cancel2Throw, isFunction } from '../utils'
 
 export default function customRequestMiddleware(ctx, next) {
   if (!ctx) return next()
@@ -42,8 +13,7 @@ export default function customRequestMiddleware(ctx, next) {
 
   if (options.adapter === 'fetch') return next()
 
-  const adapter =
-    options.adapter === 'axios' ? getDefaultAdapter() : options.adapter
+  const adapter = options.adapter === 'axios' ? axios : options.adapter
 
   if (!isFunction(adapter)) {
     throw new Error('Adapter is not available in the build')
@@ -60,6 +30,10 @@ export default function customRequestMiddleware(ctx, next) {
       'withCredentials' in options
         ? !!options.withCredentials
         : options.credentials !== 'omit'
+  }
+
+  if (adapter === 'axios' || adapter.constructor === axios.constructor) {
+    delete adapterOptions.adapter
   }
 
   if (charset === 'gbk') {

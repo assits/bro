@@ -2,10 +2,11 @@ import Onion from './Onion'
 import InterceptorManager from './InterceptorManager'
 import addfixMiddleware from '../middleware/addfix'
 import fetchMiddleware from '../middleware/fetch'
+import adapterMiddleware from './middleware/customRequest'
 import postMiddleware from '../middleware/post'
 import getMiddleware from '../middleware/get'
 import parseResponseMiddleware from '../middleware/parseResponse'
-import { mergeRequestOptions, isString } from '../utils'
+import { mergeRequestOptions, isString, isFunction } from '../utils'
 
 // 初始化全局和内核中间件
 const globalMiddlewares = [
@@ -28,6 +29,13 @@ export default class Core {
     this.interceptors = {
       request: new InterceptorManager(),
       response: new InterceptorManager()
+    }
+
+    if (
+      instanceConfig.adapter === 'axios' ||
+      isFunction(instanceConfig.adapter)
+    ) {
+      this.use(adapterMiddleware, { core: true })
     }
   }
 
