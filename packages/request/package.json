@@ -26,5 +26,17 @@
     "lodash.throttle": "^4.1.1",
     "qs": "^6.9.1",
     "vue-demi": "^0.13.11"
+  },
+  "devDependencies": {
+    "vue": "^3.2.16"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.0.0-rc.1",
+    "vue": "^2.0.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
   }
 }
