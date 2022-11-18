@@ -13,23 +13,31 @@ export default function customRequestMiddleware(ctx, next) {
 
   if (ctx.adapter === 'fetch') return next()
 
-  const adapter = ctx.adapter === 'axios' ? axios : ctx.adapter
+  const isAxios = ctx.adapter === 'axios'
+
+  const adapter = isAxios ? axios : ctx.adapter
 
   if (!isFunction(adapter)) {
     throw new Error('Adapter is not available in the build')
   }
 
-  const adapterOptions = {
+  let adapterOptions = {
     ...options,
-    timeout,
-    timeoutMessage,
-    charset,
-    responseType,
-    data: options.body || null,
-    withCredentials:
-      'withCredentials' in options
-        ? !!options.withCredentials
-        : options.credentials !== 'omit'
+  }
+
+  if (isAxios) {
+    adapterOptions = {
+      ...options,
+      timeout,
+      timeoutMessage,
+      charset,
+      responseType,
+      data: options.body || null,
+      withCredentials:
+        'withCredentials' in options
+          ? !!options.withCredentials
+          : options.credentials !== 'omit'
+    }
   }
 
   delete adapterOptions.adapter
