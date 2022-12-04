@@ -1,9 +1,9 @@
-import { reqStringify, isObject, isArray, isFunction } from '../utils'
+import { reqStringify, isObject, isArray } from '../utils'
 
 // 对请求参数做处理，实现 query 简化、 post 简化
 export default function postMiddleware(ctx, next) {
   if (!ctx) return next()
-  const { req: { options = {} } = {}, adapter } = ctx
+  const { req: { options = {} } = {}, adapterName = 'custom' } = ctx
   const { method = 'get', requestType = 'json', data } = options
 
   if (['post', 'put', 'patch', 'delete'].indexOf(method.toLowerCase()) === -1) {
@@ -13,7 +13,7 @@ export default function postMiddleware(ctx, next) {
   if (!data) return next()
 
   // XMLHttpRequest/自定义 adapter  使用的数据
-  if (isFunction(adapter) || adapter === 'axios') {
+  if (adapterName === 'custom' || adapterName === 'axios') {
     if (requestType === 'json') {
       options.headers = {
         Accept: 'application/json',
@@ -47,7 +47,7 @@ export default function postMiddleware(ctx, next) {
   }
 
   // Fetch 数据使用类axios的新字段data, 避免引用后影响旧代码, 如将body stringify多次
-  if (!adapter === 'fetch') return next()
+  if (adapterName !== 'fetch') return next()
 
   if (isObject(data) || isArray(data)) {
     if (requestType === 'json') {

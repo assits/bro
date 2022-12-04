@@ -1,73 +1,67 @@
-import axios from 'axios'
 import { timeout2Throw, cancel2Throw, isFunction } from '../utils'
 
 export default function customRequestMiddleware(ctx, next) {
   if (!ctx) return next()
-  const { req: { options = {} } = {}, responseInterceptorChain = [] } = ctx
-  const {
-    timeout = 0,
-    timeoutMessage,
-    charset = 'utf8',
-    responseType = 'json'
-  } = options
+  const { req: { url, options = {} } = {}, responseInterceptorChain = [] } = ctx
+  const { timeout = 0, timeoutMessage, charset = 'utf8' } = options
 
-  if (ctx.adapter === 'fetch') return next()
+  const isAxios = ctx.adapterName === 'axios'
+  const isFetch = ctx.adapterName === 'fetch'
+  const isCustom = ctx.adapterName === 'custom'
 
-  const isAxios = ctx.adapter === 'axios'
-
-  const adapter = isAxios ? axios : ctx.adapter
+  const adapter = ctx.adapter
 
   if (!isFunction(adapter)) {
     throw new Error('Adapter is not available in the build')
   }
 
   let adapterOptions = {
-    ...options,
+    ...options
   }
 
-  if (isAxios) {
+  if (isAxios || isCustom) {
     adapterOptions = {
       ...options,
       timeout,
       timeoutMessage,
       charset,
-      responseType,
       data: options.body || null,
       withCredentials:
         'withCredentials' in options
           ? !!options.withCredentials
           : options.credentials !== 'omit'
     }
+
+    if (charset === 'gbk') {
+      adapterOptions.responseType = 'arraybuffer'
+    }
   }
 
   delete adapterOptions.adapter
-
-  if (charset === 'gbk') {
-    adapterOptions.responseType = 'arraybuffer'
-  }
 
   let response
   // 超时处理、取消请求处理
   if (timeout > 0) {
     response = Promise.race([
       cancel2Throw(adapterOptions, ctx),
-      adapter(adapterOptions),
+      isFetch ? adapter(url, adapterOptions) : adapter(adapterOptions),
       timeout2Throw(timeout, timeoutMessage, ctx.req)
     ])
   } else {
     response = Promise.race([
       cancel2Throw(adapterOptions, ctx),
-      adapter(adapterOptions)
+      isFetch ? adapter(url, adapterOptions) : adapter(adapterOptions)
     ])
   }
 
   // 响应拦截器
   let i = 0
   while (i < responseInterceptorChain.length) {
-    response = response.then(
-      responseInterceptorChain[i++],
-      responseInterceptorChain[i++]
-    )
+    response = response
+      .then(res => {
+        return typeof res.clone === 'function' ? res.clone() : res
+      })
+      .then(responseInterceptorChain[i++], responseInterceptorChain[i++])
   }
 
   return response.then(res => {

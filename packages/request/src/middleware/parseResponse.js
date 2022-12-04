@@ -11,7 +11,7 @@ export default function parseResponseMiddleware(ctx, next) {
   return next()
     .then(() => {
       if (!ctx) return
-      const { res = {}, req = {}, adapter } = ctx
+      const { res = {}, req = {}, adapterName = 'custom' } = ctx
       const {
         options: {
           responseType = 'json',
@@ -20,7 +20,7 @@ export default function parseResponseMiddleware(ctx, next) {
           parseResponse = true
         } = {}
       } = req || {}
-      const isFetchAdapter = adapter === 'fetch'
+      const isFetchAdapter = adapterName === 'fetch'
 
       if (!parseResponse || !res || (isFetchAdapter && !res.clone)) {
         return
