@@ -3,7 +3,7 @@ import { timeout2Throw, cancel2Throw, isFunction } from '../utils'
 export default function customRequestMiddleware(ctx, next) {
   if (!ctx) return next()
   const { req: { url, options = {} } = {}, responseInterceptorChain = [] } = ctx
-  const { timeout = 0, timeoutMessage, charset = 'utf8' } = options
+  const { timeout = 10 * 1000, timeoutMessage, charset = 'utf8' } = options
 
   const isAxios = ctx.adapterName === 'axios'
   const isFetch = ctx.adapterName === 'fetch'

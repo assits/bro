@@ -70,6 +70,9 @@ export default function parseResponseMiddleware(ctx, next) {
         return
       }
 
+      // 兼容小程序
+      copy.status = copy.status || copy.statusCode
+
       if (copy.status >= 200 && copy.status < 300) {
         // 提供源response, 以便自定义处理
         if (getResponse) {
