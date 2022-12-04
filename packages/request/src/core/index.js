@@ -7,7 +7,7 @@ import Core from './Core'
 import Onion from './Onion'
 import { Cancel, CancelToken, isCancel } from '../cancel'
 
-function createIntance(opts = {}) {
+function createEntrance(opts = {}) {
   const coreInstance = new Core(opts)
 
   const bomiIntance = (optionsOrUrl, options = {}) => {
@@ -59,6 +59,4 @@ function createIntance(opts = {}) {
  * @param {function} errorHandler 统一错误处理方法
  * @param {object} headers 统一的headers
  */
-export const extend = initOptions => createIntance(initOptions)
-
-export default createIntance()
+export const extend = initOptions => createEntrance(initOptions)

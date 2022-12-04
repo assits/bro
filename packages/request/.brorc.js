@@ -1,5 +1,5 @@
 export default {
-  esm: { type: 'rollup', minify: true },
+  esm: 'babel',
   cjs: 'babel',
   runtimeHelpers: true
 }

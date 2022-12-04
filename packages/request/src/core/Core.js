@@ -1,8 +1,7 @@
 import Onion from './Onion'
 import InterceptorManager from './InterceptorManager'
 import addfixMiddleware from '../middleware/addfix'
-import fetchMiddleware from '../middleware/fetch'
-import adapterMiddleware from '../middleware/customRequest'
+import adapterMiddleware from '../middleware/adapterRequest'
 import postMiddleware from '../middleware/post'
 import getMiddleware from '../middleware/get'
 import parseResponseMiddleware from '../middleware/parseResponse'
@@ -15,7 +14,7 @@ const globalMiddlewares = [
   getMiddleware,
   parseResponseMiddleware
 ]
-const coreMiddlewares = [fetchMiddleware]
+const coreMiddlewares = [adapterMiddleware]
 
 Onion.globalMiddlewares = globalMiddlewares
 Onion.defaultGlobalMiddlewaresLength = globalMiddlewares.length
@@ -32,10 +31,8 @@ export default class Core {
     }
 
     // 初始化适配器
-    this.adapter = instanceConfig.adapter || 'fetch'
-    if (this.adapter === 'axios' || isFunction(this.adapter)) {
-      this.use(adapterMiddleware, { core: true })
-    }
+    this.adapter = instanceConfig.adapter
+    this.adapterName = instanceConfig.adapterName || 'custom'
   }
 
   extendOptions(options) {
@@ -103,6 +100,7 @@ export default class Core {
       req: { url: options.url, options },
       res: null,
       adapter: this.adapter,
+      adapterName: this.adapterName,
       responseInterceptorChain
     }
 

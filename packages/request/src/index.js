@@ -1,5 +1,5 @@
 import { RequestError, ResponseError, clearCache } from './utils'
-import request, { extend } from './core'
+import { extend } from './core'
 import { useRequest, useRequestByVue } from './enhancer'
 
 export {
@@ -10,5 +10,3 @@ export {
   useRequest,
   useRequestByVue
 }
-
-export default request
