@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.21](https://github.com/sportcoco/bro/compare/@assits/bro-build@1.0.10...@assits/bro-build@1.0.21) (2022-12-04)
+
+
+### Bug Fixes
+
+* **babel:** fix babel setting error ([3e8e2f7](https://github.com/sportcoco/bro/commit/3e8e2f7eb6f6854c833f3a6dc3e1fc18d02425fc))
+* **schema.js:** 添加缺少的参数 ([3b7d432](https://github.com/sportcoco/bro/commit/3b7d432fbcd0fb00abcf618f526df10caad77b90))
+
+
+
+## 1.0.16 (2022-03-23)
+
+
+### Bug Fixes
+
+* **babel:** fix some bugs ([ef7d41e](https://github.com/sportcoco/bro/commit/ef7d41e4fa8653684588397a63eda7d36e6f492d))
+
+
+
+## 1.0.15 (2022-03-22)
+
+
+### Bug Fixes
+
+* **babel:** fix dependency file errors ([de6495f](https://github.com/sportcoco/bro/commit/de6495f2ff40b880c66b1c04a0d33c5899cb5633))
+* **babel:** fix the dependency configuration ([ec31455](https://github.com/sportcoco/bro/commit/ec31455071c8ac99c8286c20b7585e280246d889))
+* **vue:** fix some bugs ([a2088ed](https://github.com/sportcoco/bro/commit/a2088edd904b66dc2c1dcf6e076e3be8597e9631))
+
+
+
+
+
 ## [1.0.20](https://github.com/sportcoco/bro/compare/@assits/bro-build@1.0.10...@assits/bro-build@1.0.20) (2022-12-04)
 
 
