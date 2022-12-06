@@ -7,7 +7,10 @@ export default function addfixMiddleware(ctx, next) {
 
   let url = options.url
   if (prefix) {
-    url = pathJoin(prefix, url)
+    const RE = /^https{0,1}\:\/\//
+    const protocol = prefix.match(RE)?.[0] || ''
+    const sub = prefix.replace(RE, '')
+    url = protocol + pathJoin(sub, url)
   }
   if (suffix) {
     url = pathJoin(url, suffix)

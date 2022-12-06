@@ -68,7 +68,7 @@ export function paramsSerialize(params, paramsSerializer) {
 export default function getMiddleware(ctx, next) {
   if (!ctx) return next()
   const { req: { options = {} } = {} } = ctx
-  const { paramsSerializer, params } = options
+  const { paramsSerializer, data: params } = options
   let { req: { url = '' } = {} } = ctx
 
   // 将 method 改为大写
@@ -84,10 +84,10 @@ export default function getMiddleware(ctx, next) {
   let serializedParams = paramsSerialize(params, paramsSerializer)
 
   ctx.req.originUrl = url
-  
+
   if (serializedParams) {
     const urlSign = url.indexOf('?') !== -1 ? '&' : '?'
-    ctx.req.url = `${url}${urlSign}${serializedParams}`
+    ctx.req.url = options.url = `${url}${urlSign}${serializedParams}`
   }
 
   ctx.req.options = options
