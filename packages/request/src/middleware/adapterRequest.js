@@ -59,7 +59,9 @@ export default function customRequestMiddleware(ctx, next) {
   while (i < responseInterceptorChain.length) {
     response = response
       .then(res => {
-        return typeof res.clone === 'function' ? res.clone() : res
+        res = typeof res.clone === 'function' ? res.clone() : res
+        res.config = adapterOptions
+        return res
       })
       .then(responseInterceptorChain[i++], responseInterceptorChain[i++])
   }
