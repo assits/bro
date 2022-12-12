@@ -71,6 +71,9 @@ export default function getMiddleware(ctx, next) {
   const { paramsSerializer, data: params } = options
   let { req: { url = '' } = {} } = ctx
 
+  if (['get'].indexOf(options.method.toLowerCase()) === -1) {
+    return next()
+  }
   // 将 method 改为大写
   options.method = options.method ? options.method.toUpperCase() : 'GET'
 
@@ -91,6 +94,9 @@ export default function getMiddleware(ctx, next) {
   }
 
   ctx.req.options = options
+
+
+  console.log('ctx.req',ctx.req);
 
   return next()
 }
