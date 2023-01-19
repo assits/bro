@@ -56,7 +56,8 @@ export default class Core {
           ctx.req.options = ret || ctx.req.options
           return ret
         })
-        .then(interceptors[i++], interceptors[i++])
+        .then(interceptors[i++])
+        .catch(interceptors[i++])
     }
 
     return promise

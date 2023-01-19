@@ -64,7 +64,8 @@ export default function customRequestMiddleware(ctx, next) {
         res.config = adapterOptions
         return res
       })
-      .then(responseInterceptorChain[i++], responseInterceptorChain[i++])
+      .then(responseInterceptorChain[i++])
+      .catch(responseInterceptorChain[i++])
   }
 
   return response.then(res => {
