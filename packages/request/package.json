@@ -1,6 +1,6 @@
 {
   "name": "@assits/request",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "@assits/request",
   "main": "lib/index.js",
   "module": "es/index.js",

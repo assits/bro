@@ -95,8 +95,5 @@ export default function getMiddleware(ctx, next) {
 
   ctx.req.options = options
 
-
-  console.log('ctx.req',ctx.req);
-
   return next()
 }
