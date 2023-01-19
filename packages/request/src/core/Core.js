@@ -52,7 +52,7 @@ export default class Core {
     while (i < len) {
       promise = promise
         .then(ret => {
-          ctx.req.url = ret.url || ctx.req.url
+          ctx.req.url = ret?.url || ctx.req.url
           ctx.req.options = ret || ctx.req.options
           return ret
         })
