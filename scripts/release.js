@@ -91,6 +91,11 @@ async function release() {
       '--no-push'
     ])
 
+     // Commit
+     const commitMessage = `chore: changelog`
+     logStep(`git commit with ${chalk.blue(commitMessage)}`)
+     await exec('git', ['commit', '--all', '--message', commitMessage])
+
     // Push
     logStep(`git push`)
     await exec('git', ['push', 'origin', 'master']).catch(err =>
