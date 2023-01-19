@@ -56,20 +56,20 @@ async function release() {
 
   let updated = null
 
-  if (!args.publishOnly) {
-    // Get updated packages
-    logStep('check updated packages')
-    const updatedStdout = execa.sync(lernaCli, ['changed']).stdout
-    updated = updatedStdout
-      .split('\n')
-      .map(pkg => {
-        return pkg.split('/')[1]
-      })
-      .filter(Boolean)
-    if (!updated.length) {
-      printErrorAndExit('Release failed, no updated package is updated.')
-    }
+  // Get updated packages
+  logStep('check updated packages')
+  const updatedStdout = execa.sync(lernaCli, ['changed']).stdout
+  updated = updatedStdout
+    .split('\n')
+    .map(pkg => {
+      return pkg.split('/')[1]
+    })
+    .filter(Boolean)
+  if (!updated.length) {
+    printErrorAndExit('Release failed, no updated package is updated.')
+  }
 
+  if (!args.publishOnly) {
     // Clean
     logStep('clean')
 
@@ -91,60 +91,29 @@ async function release() {
       '--no-push'
     ])
 
-    const currVersion = require('../lerna').version
-
-    // Sync version to root package.json
-    logStep('sync version to root package.json')
-    const rootPkg = require('../package')
-    Object.keys(rootPkg.devDependencies).forEach(name => {
-      if (name.startsWith('@assits/') && !name.startsWith('@assits/p')) {
-        rootPkg.devDependencies[name] = currVersion
-      }
-    })
-    writeFileSync(
-      join(__dirname, '..', 'package.json'),
-      JSON.stringify(rootPkg, null, 2) + '\n',
-      'utf-8'
-    )
-
-    // Commit
-    const commitMessage = `release: v${currVersion}`
-    logStep(`git commit with ${chalk.blue(commitMessage)}`)
-    await exec('git', ['commit', '--all', '--message', commitMessage])
-
-    // Git Tag
-    logStep(`git tag v${currVersion}`)
-    await exec('git', ['tag', `v${currVersion}`])
-
     // Push
     logStep(`git push`)
-    await exec('git', ['push', 'origin', 'master', '--tags'])
+    await exec('git', ['push', 'origin', 'master']).catch(err =>
+      console.error(err)
+    )
   }
 
   // Publish
-  const pkgs = args.publishOnly ? getPackages('packages') : updated
+  const pkgs = updated
   logStep(`publish packages: ${chalk.blue(pkgs.join(', '))}`)
-  const currVersion = require('../lerna').version
-  const isNext = isNextVersion(currVersion)
   pkgs
     .sort(a => {
       return a === 'assits' ? 1 : -1
     })
     .forEach((pkg, index) => {
       const pkgPath = join(cwd, 'packages', pkg)
-      const { name, version } = require(join(pkgPath, 'package.json'))
-      if (version === currVersion) {
-        console.log(
-          `[${index + 1}/${pkgs.length}] Publish package ${name} ${
-            isNext ? 'with next tag' : ''
-          }`
-        )
-        const cliArgs = isNext ? ['publish', '--tag', 'next'] : ['publish']
-        const { stdout } = execa.sync('npm', cliArgs, {
-          cwd: pkgPath
-        })
-        console.log(stdout)
-      }
+      const { name } = require(join(pkgPath, 'package.json'))
+      console.log(`[${index + 1}/${pkgs.length}] Publish package ${name}`)
+      const cliArgs = ['publish']
+      const { stdout } = execa.sync('npm', cliArgs, {
+        cwd: pkgPath
+      })
+      console.log(stdout)
     })
 
   logStep('done')
