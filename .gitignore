@@ -15,3 +15,6 @@ lerna-debug.log
 /packages/*/node_modules
 /coverage
 report.*.json
+
+#turbo
+.turbo

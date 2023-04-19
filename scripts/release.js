@@ -1,13 +1,6 @@
 const { join } = require('path')
-const {
-  yParser,
-  execa,
-  chalk,
-  fsExtra: { writeFileSync }
-} = require('@bomijs/utils')
+const { yParser, execa, chalk } = require('@bomijs/utils')
 const exec = require('./utils/exec')
-const getPackages = require('./utils/getPackages')
-const isNextVersion = require('./utils/isNextVersion')
 const { getChangelog } = require('./utils/changelog')
 
 const cwd = process.cwd()
@@ -91,10 +84,10 @@ async function release() {
       '--no-push'
     ])
 
-     // Commit
-     const commitMessage = `chore: changelog`
-     logStep(`git commit with ${chalk.blue(commitMessage)}`)
-     await exec('git', ['commit', '--all', '--message', commitMessage])
+    // Commit
+    const commitMessage = `chore: changelog`
+    logStep(`git commit with ${chalk.blue(commitMessage)}`)
+    await exec('git', ['commit', '--all', '--message', commitMessage])
 
     // Push
     logStep(`git push`)

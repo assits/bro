@@ -74,7 +74,7 @@ export function getBundleOpts(opts) {
   });
 }
 
-export function build(opts, { pkg }) {
+export function build(opts) {
   const { cwd, rootPath, watch } = opts;
   // register babel for config files
   babelRegister({
@@ -83,7 +83,7 @@ export function build(opts, { pkg }) {
   });
 
   function log(msg) {
-    console.log(`${pkg ? `${getRandomColor(pkg)}:` : ""} ${msg}\r\n`);
+    console.log(`${opts.pkg ? `${getRandomColor(opts.pkg)}:` : ""} ${msg}\r\n`);
   }
 
   // Get user config

@@ -17,6 +17,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "build": "father build"
+  },
   "dependencies": {
     "@babel/core": "7.12.3",
     "@babel/plugin-proposal-class-properties": "7.12.1",

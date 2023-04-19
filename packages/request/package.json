@@ -2,12 +2,10 @@
   "name": "@assits/request",
   "version": "1.7.1",
   "description": "@assits/request",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "files": [
-    "lib",
-    "dist",
-    "es"
+    "dist"
   ],
   "keywords": [
     "@assits"
@@ -19,24 +17,17 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "axios": "^0.21.1",
-    "isomorphic-fetch": "^2.2.1",
+  "scripts": {
+    "build": "father build"
+  },
+  "devDependencies": {
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "qs": "~6.9.1",
-    "vue-demi": "^0.13.11"
-  },
-  "devDependencies": {
+    "vue-demi": "^0.13.11",
     "vue": "^3.2.16"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.0.0-rc.1",
-    "vue": "^2.0.0 || >=3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
+    "vue": "^2.7.0 || >=3.0.0"
   }
 }
