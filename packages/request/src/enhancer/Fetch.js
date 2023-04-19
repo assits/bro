@@ -25,7 +25,7 @@ export function createEventHook() {
   }
 }
 
-export default class Fetch {
+export class Fetch {
   // 请求时序
   count = 0
 

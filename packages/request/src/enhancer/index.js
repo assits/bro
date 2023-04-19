@@ -15,7 +15,7 @@ export {
   loadingDelayPlugin
 }
 
-export * as Fetch from './Fetch'
+export * from './Fetch'
 
 // 支持防抖、节流
 // 轮询、错误重试

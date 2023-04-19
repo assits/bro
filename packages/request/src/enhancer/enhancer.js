@@ -1,6 +1,6 @@
 // 增强器
 
-import Fetch from './Fetch'
+import { Fetch } from './Fetch'
 
 export function createEnhancer(adapter, options = {}, plugins = []) {
   const { manual = false, ...rest } = options
