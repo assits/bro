@@ -37,7 +37,7 @@ const cachePlugin = (
     // 初始化时从缓存中获取数据
     const cacheData = _getCache(cacheKey)
 
-    if (cacheData && 'data' in cacheData) {
+    if (cacheData && Object.hasOwnProperty.call(cacheData, 'data')) {
       instance.state.data = cacheData.data
       instance.state.params = cacheData.params
       if (
@@ -63,10 +63,10 @@ const cachePlugin = (
   return {
     onBefore: params => {
       const cacheData = _getCache(cacheKey, params)
-      if (!cacheData || !'data' in cacheData) {
+      if (!cacheData || !Object.hasOwnProperty.call(cacheData, 'data')) {
         return {}
       }
-      
+
       // 如果数据是新鲜的，停止请求
       if (
         staleTime === -1 ||
@@ -75,12 +75,14 @@ const cachePlugin = (
         return {
           loading: false,
           data: cacheData?.data,
+          error: undefined,
           returnNow: true
         }
       } else {
         // 如果数据过时，则返回数据并继续请求
         return {
-          data: cacheData?.data
+          data: cacheData?.data,
+          error: undefined
         }
       }
     },

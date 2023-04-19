@@ -8,9 +8,9 @@ import {
   onUnmounted,
   isRef
 } from 'vue-demi'
-import Fetch from './Fetch'
+import { Fetch } from '../enhancer'
 
-function useEnhancerByVue(service, options = {}, plugins = []) {
+export function createEnhancer(service, options = {}, plugins = []) {
   // 读取配置
   const { manual = false, ready = true, ...rest } = options
 
@@ -90,5 +90,3 @@ function useEnhancerByVue(service, options = {}, plugins = []) {
     onFinally: fetchInstance.value.finallyEvent.on
   }
 }
-
-export default useEnhancerByVue

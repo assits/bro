@@ -5,7 +5,7 @@ import adapterMiddleware from '../middleware/adapterRequest'
 import postMiddleware from '../middleware/post'
 import getMiddleware from '../middleware/get'
 import parseResponseMiddleware from '../middleware/parseResponse'
-import { mergeRequestOptions, isString, isFunction } from '../utils'
+import { mergeRequestOptions, isString } from '../utils'
 
 // 初始化全局和内核中间件
 const globalMiddlewares = [

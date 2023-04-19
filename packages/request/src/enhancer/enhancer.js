@@ -2,7 +2,7 @@
 
 import Fetch from './Fetch'
 
-function useEnhancer(adapter, options = {}, plugins = []) {
+export function createEnhancer(adapter, options = {}, plugins = []) {
   const { manual = false, ...rest } = options
 
   const fetchOptions = {
@@ -35,5 +35,3 @@ function useEnhancer(adapter, options = {}, plugins = []) {
     onFinally: fetchInstance.finallyEvent.on
   }
 }
-
-export default useEnhancer
