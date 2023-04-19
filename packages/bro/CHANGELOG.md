@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.25](https://github.com/sportcoco/bro/compare/@assits/bro@1.0.12...@assits/bro@1.0.25) (2023-04-19)
+
+
+
+## 1.0.18 (2022-09-22)
+
+
+
+## 1.0.17 (2022-03-23)
+
+
+
+## 1.0.16 (2022-03-23)
+
+
+
+## 1.0.15 (2022-03-22)
+
+**Note:** Version bump only for package @assits/bro
+
+
+
+
+
 ## [1.0.24](https://github.com/sportcoco/bro/compare/@assits/bro@1.0.12...@assits/bro@1.0.24) (2023-01-19)
 
 
