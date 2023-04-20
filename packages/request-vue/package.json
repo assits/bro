@@ -1,0 +1,35 @@
+{
+  "name": "@assits/request-vue",
+  "version": "1.9.1",
+  "description": "@assits/request-vue",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "lib",
+    "dist/",
+    "es"
+  ],
+  "keywords": [
+    "@assits"
+  ],
+  "authors": [
+    "sport"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "father build"
+  },
+  "dependencies": {
+    "@assits/request": "workspace:*",
+    "vue-demi": "latest"
+  },
+  "devDependencies": {
+    "vue": "^3.0.0"
+  },
+  "peerDependencies": {
+    "vue": "^2.7.0 || >=3.0.0"
+  }
+}

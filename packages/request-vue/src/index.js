@@ -4,12 +4,14 @@ import {
   debouncePlugin,
   throttlePlugin,
   cachePlugin,
-  loadingDelayPlugin
-} from '../enhancer'
+  loadingDelayPlugin,
+  extend,
+  RequestError,
+  ResponseError,
+  clearCache
+} from '@assits/request'
 import autoRunPlugin from './plugins/auto-run'
 import { createEnhancer } from './enhancer'
-import { RequestError, ResponseError, clearCache } from '../utils'
-import { extend } from '../core'
 
 // 支持防抖、节流
 // 轮询、错误重试

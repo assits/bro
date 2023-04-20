@@ -20,15 +20,6 @@ export default defineConfig({
           memo.output.libraryTarget('commonjs2')
           return memo
         }
-      },
-      // 供 vue2.7、vue3 使用
-      'src/vue/index.js': {
-        chainWebpack: memo => {
-          memo.experiments({ outputModule: true })
-          memo.output.libraryTarget('module')
-          memo.output.filename('vue.esm.js')
-          return memo
-        }
       }
     }
   }

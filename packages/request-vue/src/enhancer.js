@@ -8,7 +8,7 @@ import {
   onUnmounted,
   isRef
 } from 'vue-demi'
-import { Fetch } from '../enhancer'
+import { Fetch } from '@assits/request'
 
 export function createEnhancer(service, options = {}, plugins = []) {
   // 读取配置
