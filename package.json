@@ -22,7 +22,7 @@
     "cz-lerna-changelog": "^2.0.3",
     "escape-goat": "^3.0.0",
     "father": "^4.1.6",
-    "lerna": "^3.22.1",
+    "lerna": "^6.5.1",
     "prettier": "^2.1.1",
     "turbo": "^1.8.3"
   }

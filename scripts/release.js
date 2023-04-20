@@ -51,7 +51,11 @@ async function release() {
 
   // Get updated packages
   logStep('check updated packages')
-  const updatedStdout = execa.sync(lernaCli, ['changed']).stdout
+  const updatedStdout = execa.sync(lernaCli, [
+    'changed',
+    '--loglevel',
+    'error'
+  ]).stdout
   updated = updatedStdout
     .split('\n')
     .map(pkg => {
