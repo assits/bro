@@ -1,6 +1,6 @@
 {
   "name": "@assits/request",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "@assits/request",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
