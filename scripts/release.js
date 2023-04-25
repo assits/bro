@@ -51,11 +51,8 @@ async function release() {
 
   // Get updated packages
   logStep('check updated packages')
-  const updatedStdout = execa.sync(lernaCli, [
-    'changed',
-    '--loglevel',
-    'error'
-  ]).stdout
+  const updatedStdout = execa.sync(lernaCli, ['changed', '--loglevel', 'error'])
+    .stdout
   updated = updatedStdout
     .split('\n')
     .map(pkg => {
@@ -108,14 +105,18 @@ async function release() {
       return a === 'assits' ? 1 : -1
     })
     .forEach((pkg, index) => {
-      const pkgPath = join(cwd, 'packages', pkg)
-      const { name } = require(join(pkgPath, 'package.json'))
-      console.log(`[${index + 1}/${pkgs.length}] Publish package ${name}`)
-      const cliArgs = ['publish']
-      const { stdout } = execa.sync('npm', cliArgs, {
-        cwd: pkgPath
-      })
-      console.log(stdout)
+      try {
+        const pkgPath = join(cwd, 'packages', pkg)
+        const { name } = require(join(pkgPath, 'package.json'))
+        console.log(`[${index + 1}/${pkgs.length}] Publish package ${name}`)
+        const cliArgs = ['publish']
+        const { stdout } = execa.sync('npm', cliArgs, {
+          cwd: pkgPath
+        })
+        console.log(stdout)
+      } catch (err) {
+        console.error(err)
+      }
     })
 
   logStep('done')
