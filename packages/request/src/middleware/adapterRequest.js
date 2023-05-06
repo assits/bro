@@ -27,10 +27,7 @@ export default function customRequestMiddleware(ctx, next) {
       timeoutMessage,
       charset,
       data: options.method === 'GET' ? options.data : options.body,
-      withCredentials:
-        'withCredentials' in options
-          ? !!options.withCredentials
-          : options.credentials !== 'omit'
+      withCredentials: !!options.withCredentials
     }
 
     if (charset === 'gbk') {
