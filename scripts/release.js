@@ -79,6 +79,7 @@ async function release() {
     logStep('bump version with lerna version')
     await exec(lernaCli, [
       'version',
+      'patch',
       '--exact',
       '--no-commit-hooks',
       '--no-git-tag-version',
