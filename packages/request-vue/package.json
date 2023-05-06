@@ -1,6 +1,6 @@
 {
   "name": "@assits/request-vue",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "description": "@assits/request-vue",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -23,7 +23,7 @@
     "build": "father build"
   },
   "dependencies": {
-    "@assits/request": "1.9.2",
+    "@assits/request": "1.9.3",
     "vue-demi": "latest"
   },
   "devDependencies": {
