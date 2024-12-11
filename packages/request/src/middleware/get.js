@@ -68,7 +68,7 @@ export function paramsSerialize(params, paramsSerializer) {
 export default function getMiddleware(ctx, next) {
   if (!ctx) return next()
   const { req: { options = {} } = {} } = ctx
-  const { paramsSerializer, data: params } = options
+  const { paramsSerializer, params } = options
   let { req: { url = '' } = {} } = ctx
 
   if (['get'].indexOf(options.method.toLowerCase()) === -1) {
