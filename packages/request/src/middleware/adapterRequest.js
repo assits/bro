@@ -27,7 +27,8 @@ export default function customRequestMiddleware(ctx, next) {
       timeoutMessage,
       charset,
       params: options.params,
-      data: options.body,
+      data: options.data,
+      body: options.body,
       withCredentials: !!options.withCredentials
     }
 
